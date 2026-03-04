@@ -10,8 +10,8 @@ password = os.getenv("password")
 connection = mysql.connector.connect(
     host='htl-datenbank.com',
     port=28474,
-    user='virhut23',
-    password='REMOVED',
+    user=user,
+    password=password,
     database='virhut23_hotel_db'
 )
 
