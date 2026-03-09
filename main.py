@@ -40,6 +40,7 @@ def create_guest_booking(first_name, last_name, email, phone, room_id, check_in,
 
     print("Guest and booking created successfully!")
 
+
 def bookings_by_date(date):
     sql = """
     select g.first_name, g.last_name, r.room_number, b.check_in, b.check_out from bookings b join guests g on b.guest_id = g.guest_id join rooms r on b.room_id = r.room_id where %s between b.check_in and b.check_out
@@ -50,12 +51,34 @@ def bookings_by_date(date):
         print(i)
 
 
+def add_service_to_booking(booking_id, service_id):
+    sql = """
+    insert into booking_services (booking_id, service_id)
+    values (%s,%s)
+    """
+    cursor.execute(sql, (booking_id, service_id))
+    connection.commit()
+    print("Service added to booking")
+
+
+def cancel_bookings(booking_id):
+    sql = """
+    delete from bookings where booking_id = %s
+    """
+    cursor.execute(sql, (booking_id,))
+    connection.commit()
+    print("Booking cancelled!")
+
+
+
 if connection.is_connected():
 
     print("Connection Successful!")
 
-    create_guest_booking("Virvi", "Huta", "virvi1@gmail.com", "123456", 1, "2026-06-01", "2026-06-05")
+    create_guest_booking("Virvi", "Huta", "virvi3@gmail.com", "123456", 1, "2026-06-01", "2026-06-05")
     bookings_by_date("2026-06-02")
+    add_service_to_booking(1, 2)
+    cancel_bookings(1)
 
 else:
     print("Connection Failed")
