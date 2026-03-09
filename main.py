@@ -93,7 +93,6 @@ def cancel_bookings(booking_id):
     print("Booking cancelled!")
 
 
-
 def menu():
     while True:
         print("\n===== HOTEL MANAGEMENT SYSTEM =====")
