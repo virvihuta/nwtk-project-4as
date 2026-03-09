@@ -16,4 +16,13 @@ connection = mysql.connector.connect(
 )
 
 if connection.is_connected():
-    print("Connection was Successful!")
+    print("Connection is Successful!")
+
+    cursor = connection.cursor()
+    cursor.execute("select * from guests")
+    results = cursor.fetchall()
+    for i in results:
+        print(i)
+
+else:
+    print("Connection is not Successful!")
