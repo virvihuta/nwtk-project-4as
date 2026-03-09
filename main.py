@@ -17,8 +17,6 @@ connection = mysql.connector.connect(
 
 cursor = connection.cursor()
 
-
-
 def create_guest_booking(first_name, last_name, email, phone, room_id, check_in, check_out):
     sql_guest = """
     insert into guests (first_name, last_name, email, phone)
@@ -53,7 +51,6 @@ def create_guest_booking(first_name, last_name, email, phone, room_id, check_in,
 
 
 def bookings_by_date(date):
-
     sql = """
     SELECT g.first_name, g.last_name, r.room_number, b.check_in, b.check_out
     FROM bookings b
@@ -73,7 +70,6 @@ def bookings_by_date(date):
 
 
 def add_service_to_booking(booking_id, service_id):
-
     sql = """
     INSERT INTO booking_services (booking_id, service_id)
     VALUES (%s, %s)
@@ -86,7 +82,6 @@ def add_service_to_booking(booking_id, service_id):
 
 
 def cancel_bookings(booking_id):
-
     sql = """
     DELETE FROM bookings
     WHERE booking_id = %s
@@ -100,9 +95,7 @@ def cancel_bookings(booking_id):
 
 
 def menu():
-
     while True:
-
         print("\n===== HOTEL MANAGEMENT SYSTEM =====")
         print("1 - Create guest and booking")
         print("2 - Show bookings by date")
@@ -113,7 +106,6 @@ def menu():
         choice = input("Choose option: ")
 
         if choice == "1":
-
             first_name = input("First name: ")
             last_name = input("Last name: ")
             email = input("Email: ")
@@ -124,44 +116,30 @@ def menu():
 
             create_guest_booking(first_name, last_name, email, phone, room_id, check_in, check_out)
 
-
         elif choice == "2":
-
             date = input("Enter date (YYYY-MM-DD): ")
             bookings_by_date(date)
 
-
         elif choice == "3":
-
             booking_id = int(input("Booking ID: "))
             service_id = int(input("Service ID: "))
-
             add_service_to_booking(booking_id, service_id)
 
-
         elif choice == "4":
-
             booking_id = int(input("Booking ID to cancel: "))
             cancel_bookings(booking_id)
 
-
         elif choice == "5":
-
             print("Program closed.")
             break
 
-
         else:
-
             print("Invalid option. Try again.")
 
 
-
 if connection.is_connected():
-
     print("Connection Successful!")
     menu()
 
 else:
-
     print("Connection Failed")
