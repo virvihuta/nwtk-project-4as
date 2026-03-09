@@ -40,13 +40,22 @@ def create_guest_booking(first_name, last_name, email, phone, room_id, check_in,
 
     print("Guest and booking created successfully!")
 
+def bookings_by_date(date):
+    sql = """
+    select g.first_name, g.last_name, r.room_number, b.check_in, b.check_out from bookings b join guests g on b.guest_id = g.guest_id join rooms r on b.room_id = r.room_id where %s between b.check_in and b.check_out
+    """
+    cursor.execute(sql, (date,))
+    results = cursor.fetchall()
+    for i in results:
+        print(i)
 
 
 if connection.is_connected():
 
     print("Connection Successful!")
 
-    create_guest_booking("Virvi", "Huta", "virvi@gmail.com", "123456", 1, "2026-06-01", "2026-06-05")
+    create_guest_booking("Virvi", "Huta", "virvi1@gmail.com", "123456", 1, "2026-06-01", "2026-06-05")
+    bookings_by_date("2026-06-02")
 
 else:
     print("Connection Failed")
